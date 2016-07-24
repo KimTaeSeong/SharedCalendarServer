@@ -14,6 +14,14 @@ module.exports = function(app, Schedule, User)
 	push_service.listen(Schedule, User);
     });
 
+    app.get('/', function(req,res){
+	res.render('index', {
+			title: "he",
+			length: 5
+			})
+	});
+    
+
     // GET ALL USER SCHEDULES
     app.get('/api/:email', function(req,res){
 	Schedule.find(function(err, schedule){
