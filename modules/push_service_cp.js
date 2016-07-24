@@ -66,15 +66,15 @@ pushMessage = function(Schedule, User, cityIdx, date, weather)
 	// 1. 현재 날짜에서 날씨가 일치하지 않으면 Push 
         return Schedule.find({$and:[{"st_time": {"$gte": st_time, "$lt": ed_time}}, {"weather": {$ne: weatherVal}}, {"weather":{ $ne: "NONE"}}, {"loc": {"$eq": cityIdx}}]}, function(err, schedules){
 		var userMap = {};
-		schedules.forEach(function(schedule) {
+		/*schedules.forEach(function(schedule) {
 			//console.log(schedule.loc + ":" + schedule.weather);
 			//console.log(schedule.email);
 			User.findOne({"email": schedule.email}, function(err, user){
 				if(user != null){
-					sendMessage(user.token, date, weather);
+					//sendMessage(user.token, date, weather);
 				}				
 			});
-		});
+		});*/
         });
 	}
 }
@@ -120,5 +120,10 @@ exports.listen = function(Schedule, User)
 				}
 			});
 	});
+	// 4. Wait for 12 hours
+	//var st_time = moment().format("MMM DD, YYYY 00:00:00 ") + "AM";
+	//var ed_time = moment().format("MMM DD, YYYY 23:59:59 ") + "PM";
 	console.log('start');
+	sleep.sleep(3);
+	//	console.log('check weathers');}, 43200);
 }

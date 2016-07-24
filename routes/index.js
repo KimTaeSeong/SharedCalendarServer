@@ -1,15 +1,18 @@
 var push_service = require('../modules/push_service');
 var crypto 	 = require('crypto');
-var InfiniteLoop = require('infinite-loop');
+//var InfiniteLoop = require('infinite-loop');
+var schedule = require('node-schedule');
+var rule = new schedule.RecurrenceRule();
+//rule.minute = new schedule.Range(0,59,1);
+rule.hour = 7;
+rule.minute = 0;
 
 module.exports = function(app, Schedule, User)
 {
     // START PUSH SERVICE
-    var il = new InfiniteLoop();
-    il.add(push_service.listen, app, Schedule, User);
-    il.run();
-
-    push_service.listen(app, Schedule, User);
+    schedule.scheduleJob(rule, function(){
+	push_service.listen(Schedule, User);
+    });
 
     // GET ALL USER SCHEDULES
     app.get('/api/:email', function(req,res){
