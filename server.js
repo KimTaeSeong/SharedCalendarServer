@@ -5,8 +5,9 @@ var bodyParser  = require('body-parser');
 var fs		= require('fs');
 var mongoose    = require('mongoose');
 var Schedule	= require('./models/schedule');
+
 var User	= require('./models/user');
- 
+var x = 10; 
 app.set('views', './view');
 app.set('view engine', 'ejs');
 app.engine('html', require('ejs').renderFile);
